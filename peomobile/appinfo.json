@@ -1,0 +1,12 @@
+{
+  "id": "peomobile",
+  "version": "0.1.0",
+  "vendor": "open source",
+  "type": "web",
+  "main": "index.html",
+  "title": "PEO-Mobile",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "transparent": true,
+  "permissions": ["network", "media"]
+}

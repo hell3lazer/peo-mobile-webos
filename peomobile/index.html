@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PEO Mobile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <script src="webOSTVjs-1.2.10/webOSTV.js" async charset="utf-8"></script>
+  <script src="webOSTVjs-1.2.10/webOSTV-dev.js" async charset="utf-8"></script>
+  <style>*{margin:0;padding:0;box-sizing:border-box}html,body{width:100%;height:100%;background:black;overflow:hidden;font-family:system-ui,-apple-system,sans-serif}#peoFrame{position:absolute;top:0;left:0;width:100%;height:100%;border:none;overflow:auto;loading:lazy}#loader{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:linear-gradient(45deg,#001122,#003366);display:flex;align-items:center;justify-content:center;z-index:10000;overflow:hidden;text-align:center;color:#fff}#loader h1{font-size:6vw;margin-bottom:2vw}#loader>div{width:100px;height:100px;border:6px solid rgba(255,255,255,.3);border-top:6px solid #007cba;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 3vw}#loader p{font-size:4vw}#loader small{font-size:2.5vw;color:#aaa}@keyframes spin{to{transform:rotate(360deg)}}#reloadOverlay{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.9);color:#fff;padding:30px;border-radius:15px;text-align:center;z-index:99999;font-family:sans-serif}#reloadOverlay button{background:#007cba;color:#fff;border:0;padding:15px 30px;border-radius:8px;font-size:18px;cursor:pointer}#reloadOverlay small{font-size:12px;margin-top:20px}</style>
+  <script>
+    let currentUrl='https://www.peomobile.com/',loadAttempts=0,MAX_ATTEMPTS=5,peoLoaded=!1,iframeSrc='';
+    function removeLoader(){const e=document.getElementById('loader');e&&e.remove()}
+    function loadPEOSite(){loadAttempts++;peoLoaded=!1;document.title='PEO Mobile - Loading...';const e=currentUrl+(currentUrl.includes('?')?'&':'?')+'tvapp=1&t='+(new Date).getTime();iframeSrc=e;const t=document.getElementById('peoFrame');t&&(t.src=e);removeLoader()}
+    function showReloadButton(){if(peoLoaded)return;const e=document.createElement('div');e.id='reloadOverlay';e.innerHTML='<h2>Connection Issue</h2><p>Tap to reload PEO Mobile</p><button id="reloadBtn">Reload</button><small>Created by hell3lazer</small>';document.body.appendChild(e);document.getElementById('reloadBtn').onclick=()=>{e.remove();loadPEOSite()};setTimeout(()=>{!peoLoaded&&e.remove()&&loadPEOSite()},5e3)}
+    window.addEventListener('load',()=>{const e=document.getElementById('peoFrame');e&&(e.addEventListener('load',()=>{peoLoaded=!0;document.title='PEO Mobile'}),setTimeout(loadPEOSite,0))});['webOSLaunch','webOSRelaunch'].forEach(e=>document.addEventListener(e,loadPEOSite,!0));setTimeout(()=>{!peoLoaded&&loadAttempts<MAX_ATTEMPTS&&showReloadButton()},15e3);document.addEventListener('keydown',e=>{e.keyCode===461&&window.webOS?.platformBack?.()})
+  </script>
+</head>
+<body>
+  <div id="loader">
+    <div>
+      <h1>PEO Mobile</h1>
+      <div></div>
+      <p>Loading...</p>
+      <small id="attempts">Created by hell3lazer</small>
+    </div>
+  </div>
+  <iframe id="peoFrame" src="" loading="lazy" scrolling="auto"></iframe>
+</body>
+</html>
